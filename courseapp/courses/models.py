@@ -34,7 +34,8 @@ class Course(ModelBase):
 class Lesson(ModelBase):
     subject = models.CharField(max_length=255)
     content = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons', related_query_name='my_lession')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons', related_query_name='my_lesson')
+    tags = models.ManyToManyField('Tag', blank=True, related_name='lessons')
 
     class Meta:
         unique_together = ('subject', 'course')
@@ -42,3 +43,9 @@ class Lesson(ModelBase):
     def __str__(self):
         return self.subject
     
+
+class Tag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
