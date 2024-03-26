@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class ModelBase(models.Model):
@@ -33,7 +34,7 @@ class Course(ModelBase):
 
 class Lesson(ModelBase):
     subject = models.CharField(max_length=255)
-    content = models.TextField()
+    content = RichTextField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons', related_query_name='my_lesson')
     tags = models.ManyToManyField('Tag', blank=True, related_name='lessons')
 
