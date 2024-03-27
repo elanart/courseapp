@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from courses.models import Course, Tag, Lesson
+from courses.models import Course, Tag, Lesson, Comment
 
 
 class CourseSerializer(ModelSerializer):
@@ -20,3 +20,9 @@ class LessonSerializer(ModelSerializer):
     class Meta:
         model = Lesson
         fields = ['id', 'subject', 'content', 'created_date', 'updated_date', 'tags']
+
+
+class CommentSerializer(ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'content']

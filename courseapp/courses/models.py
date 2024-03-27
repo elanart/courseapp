@@ -11,6 +11,13 @@ class ModelBase(models.Model):
     class Meta:
         abstract = True
         ordering = ['-id']
+
+
+class User(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    
+    def __str__(self):
+        return self.name
     
 
 class Category(models.Model):
@@ -50,3 +57,20 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class Interaction(ModelBase):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class Comment(Interaction):
+    content = models.CharField(max_length=255)
+
+
+class Like(Interaction):
+    class Meta:
+        unique_together = ('lesson', 'user')
